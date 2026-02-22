@@ -23,6 +23,7 @@ void image_write_test(void)
    // use red on blue to detect R<->B swaps
    unsigned char img6x5_rgb[6*5*3];
    float img6x5_rgbf[6*5*3];
+   unsigned short img6x5_rgbs[6*5*3];
    int i;
 
    for (i = 0; i < 6*5; i++) {
@@ -34,9 +35,14 @@ void image_write_test(void)
       img6x5_rgbf[i*3 + 0] = on ? 1.0f : 0.0f;
       img6x5_rgbf[i*3 + 1] = 0.0f;
       img6x5_rgbf[i*3 + 2] = on ? 0.0f : 1.0f;
+
+      img6x5_rgbs[i*3 + 0] = on ? 65535 : 0;
+      img6x5_rgbs[i*3 + 1] = 0;
+      img6x5_rgbs[i*3 + 2] = on ? 0 : 65535;
    }
 
    stbi_write_png("output/wr6x5_regular.png", 6, 5, 3, img6x5_rgb, 6*3);
+   stbi_write_png16("output/wr6x5_regular_16.png", 6, 5, 3, img6x5_rgbs, 6*3*2);
    stbi_write_bmp("output/wr6x5_regular.bmp", 6, 5, 3, img6x5_rgb);
    stbi_write_tga("output/wr6x5_regular.tga", 6, 5, 3, img6x5_rgb);
    stbi_write_jpg("output/wr6x5_regular.jpg", 6, 5, 3, img6x5_rgb, 95);
@@ -45,6 +51,7 @@ void image_write_test(void)
    stbi_flip_vertically_on_write(1);
 
    stbi_write_png("output/wr6x5_flip.png", 6, 5, 3, img6x5_rgb, 6*3);
+   stbi_write_png16("output/wr6x5_flip_16.png", 6, 5, 3, img6x5_rgbs, 6*3*2);
    stbi_write_bmp("output/wr6x5_flip.bmp", 6, 5, 3, img6x5_rgb);
    stbi_write_tga("output/wr6x5_flip.tga", 6, 5, 3, img6x5_rgb);
    stbi_write_jpg("output/wr6x5_flip.jpg", 6, 5, 3, img6x5_rgb, 95);
